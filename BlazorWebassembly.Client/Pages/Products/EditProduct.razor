@@ -1,5 +1,10 @@
-﻿<h3>EditProduct</h3>
+﻿@page "/products/editProduct/{Id:int}"
+
+<h3>EditProduct</h3>
 
 @code {
+
+    [Parameter]
+    public int Id { get; set; }
 
 }
