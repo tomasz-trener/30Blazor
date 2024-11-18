@@ -59,5 +59,16 @@ namespace Shop.API.Controllers
             else
                 return StatusCode(500, $"Internal server error {result.Message}");
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<Product>>> CreateProduct([FromBody] Product newProduct)
+        {
+            var result = await _productService.CreateProductAsync(newProduct);
+
+            if (result.Success)
+                return Ok(result);
+            else
+                return StatusCode(500, $"Internal server error {result.Message}");
+        }
     }
 }
