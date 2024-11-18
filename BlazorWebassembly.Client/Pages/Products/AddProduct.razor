@@ -1,0 +1,30 @@
+﻿@page "/products/addProduct"
+
+@inject IProductService ProductService
+@inject NavigationManager NavigationManager
+<h3>AddProduct</h3>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <p>@message</p>
+}
+<ProductForm product="product" OnValidSubmit="OnValidSubmit"></ProductForm>
+
+@code {
+
+    private Product product { get; set; } = new Product();
+    private string message= null;
+
+    private async void OnValidSubmit()
+    {
+        var response = await ProductService.CreateProductAsync(product);
+        if (response.Success)
+        {
+            NavigationManager.NavigateTo("/products/productsList");
+        }
+        else
+        {
+            message = response.Message;
+        }
+    }
+}
