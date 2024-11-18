@@ -1,0 +1,15 @@
+﻿
+https://github.com/tomasz-trener/30Blazor
+
+1) Stworzliśmy w blazor webassembly nowy projekt
+	z komunikacją przez api do bazy danych 
+
+	komunikacja c#-html
+	bindowanie danych 
+	walidacja formularzy
+	używanie komponentów
+
+2) instalacja pakietu nuget
+	- Microsoft.EntityFrameworkCore.SqlServer
+	- Microsoft.EntityFrameworkCore
+	- Microsoft.EntityFrameworkCore.Design
