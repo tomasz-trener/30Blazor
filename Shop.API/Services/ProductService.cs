@@ -62,10 +62,10 @@ namespace Shop.API.Services
 
         public async Task<ServiceResponse<Product>> GetProductAsync(int id)
         {
-             var result = new ServiceResponse<Product>();
+            var result = new ServiceResponse<Product>();
             try
             {
-                result.Data = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+                result.Data = await _context.Products.FirstAsync(p => p.Id == id);
                 result.Success = true;
                 result.Message = "Product retrieved successfully";
             }
@@ -94,9 +94,40 @@ namespace Shop.API.Services
             return result;
         }
 
-        public Task<ServiceResponse<Product>> UpdateProductAsync(Product updatedProduct)
+        public async Task<ServiceResponse<Product>> UpdateProductAsync(Product updatedProduct)
         {
-            throw new NotImplementedException();
+            var result = new ServiceResponse<Product>();
+
+            try
+            {
+                var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == updatedProduct.Id);
+                if (product == null)
+                {
+                    result.Success = false;
+                    result.Message = "Product not found";
+                    return result;
+                }
+                _context.Entry(product).CurrentValues.SetValues(updatedProduct);
+
+                //product.Title = updatedProduct.Title;
+                //product.Description = updatedProduct.Description;
+                //product.Price = updatedProduct.Price;
+                //product.Barcode= updatedProduct.Barcode;
+                //product.ReleaseDate = updatedProduct.ReleaseDate;
+
+                await _context.SaveChangesAsync();
+                result.Success = true;
+                result.Data = product;
+                result.Message = "Product updated successfully";
+                return result;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
         }
     }
 }
