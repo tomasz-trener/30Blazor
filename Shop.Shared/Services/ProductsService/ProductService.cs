@@ -22,6 +22,30 @@ namespace Shop.Shared.Services.ProductsService
             _httpClient = httpClient;
             _appSettings = appSettings.Value;
         }
+
+        public async Task<ServiceResponse<Product>> CreateProductAsync(Product newProduct)
+        {
+            var response = await _httpClient.PostAsJsonAsync(_appSettings.ProductEndpoint.CreateProduct, newProduct);
+            var result = await response.Content.ReadFromJsonAsync<ServiceResponse<Product>>();
+            return result;
+        }
+
+        public async Task<ServiceResponse<bool>> DeleteProductAsync(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"{id}");
+            var result = await response.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
+            return result;
+
+
+        }
+
+        public async Task<ServiceResponse<Product>> GetProductAsync(int id)
+        {
+            var response = await _httpClient.GetAsync($"{id}");
+            var result = await response.Content.ReadFromJsonAsync<ServiceResponse<Product>>();
+            return result;
+        }
+
         public async Task<ServiceResponse<List<Product>>> GetProductsAsync()
         {
             try
@@ -41,6 +65,27 @@ namespace Shop.Shared.Services.ProductsService
                 return new ServiceResponse<List<Product>> { Success = false, Message = ex.Message };
             }
 
+        }
+
+        public async Task<ServiceResponse<Product>> UpdateProductAsync(Product updatedProduct)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync(_appSettings.ProductEndpoint.UpdateProduct, updatedProduct);
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                var product = JsonConvert.DeserializeObject<ServiceResponse<Product>>(json);
+                return product;
+
+            }
+            catch (HttpRequestException ex)
+            {
+                return new ServiceResponse<Product> { Success = false, Message = "Failed to load product:" + ex.Message };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<Product> { Success = false, Message = ex.Message };
+            }
         }
     }
 }
