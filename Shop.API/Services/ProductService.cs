@@ -34,9 +34,30 @@ namespace Shop.API.Services
             return result;
         }
 
-        public Task<ServiceResponse<bool>> DeleteProductAsync(int id)
+        public async Task<ServiceResponse<bool>> DeleteProductAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = new ServiceResponse<bool>();
+            
+            try
+            {
+                Product product = _context.Products.FirstOrDefault(p => p.Id == id);
+                if (product != null)
+                {
+                    _context.Products.Remove(product);
+                    await _context.SaveChangesAsync();
+
+                    result.Data = true;
+                    result.Success = true;
+                    result.Message = "Product deleted successfully";
+                }
+              
+            }
+            catch (Exception ex)
+            {
+                result.Message = $"Error deleting product: {ex.Message}";
+                result.Success = false;
+            }
+            return result;
         }
 
         public Task<ServiceResponse<Product>> GetProductAsync(int id)
