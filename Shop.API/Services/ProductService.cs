@@ -24,7 +24,7 @@ namespace Shop.API.Services
             }
             catch (Exception ex)
             {
-                 result.Message = $"Error retrieving products: {ex.Message}";
+                result.Message = $"Error retrieving products: {ex.Message}";
                 result.Success = false;
             }
             return result;
