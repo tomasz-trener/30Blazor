@@ -8,6 +8,6 @@ namespace Shop.Shared.Services.ProductsService
 {
     public interface IProductService
     {
-        Task<ServiceReponse<List<Product>>> GetProductsAsync();
+        Task<ServiceResponse<List<Product>>> GetProductsAsync();
     }
 }

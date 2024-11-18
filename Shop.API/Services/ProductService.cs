@@ -13,9 +13,9 @@ namespace Shop.API.Services
         {
             _context = context;
         }
-        public async Task<ServiceReponse<List<Product>>> GetProductsAsync()
+        public async Task<ServiceResponse<List<Product>>> GetProductsAsync()
         {
-            var result = new ServiceReponse<List<Product>>();
+            var result = new ServiceResponse<List<Product>>();
             try
             {
                 result.Data = await _context.Products.ToListAsync();

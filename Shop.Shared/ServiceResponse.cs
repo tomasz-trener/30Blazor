@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Shared
 {
-    public class ServiceReponse<T>
+    public class ServiceResponse<T>
     {
         public T? Data { get; set; } = default;
 

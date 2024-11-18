@@ -17,7 +17,7 @@ namespace Shop.API.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<ServiceReponse<List<Product>>>> GetProducts()
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
             var response = await _productService.GetProductsAsync();
             if (response.Success)

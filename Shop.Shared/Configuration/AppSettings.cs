@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Shared.Configuration
 {
-    internal class AppSettings
+    public class AppSettings
     {
         public AppSettings()
         {
