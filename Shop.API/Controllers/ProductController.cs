@@ -48,5 +48,16 @@ namespace Shop.API.Controllers
             }
             return NotFound(response);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<bool>>> DeleteProduct([FromRoute] int id)
+        {
+            var result = await _productService.DeleteProductAsync(id);
+
+            if (result.Success)
+                return Ok(result);
+            else
+                return StatusCode(500, $"Internal server error {result.Message}");
+        }
     }
 }
