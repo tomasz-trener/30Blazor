@@ -60,9 +60,21 @@ namespace Shop.API.Services
             return result;
         }
 
-        public Task<ServiceResponse<Product>> GetProductAsync(int id)
+        public async Task<ServiceResponse<Product>> GetProductAsync(int id)
         {
-            throw new NotImplementedException();
+             var result = new ServiceResponse<Product>();
+            try
+            {
+                result.Data = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+                result.Success = true;
+                result.Message = "Product retrieved successfully";
+            }
+            catch (Exception ex)
+            {
+                result.Message = $"Error retrieving product: {ex.Message}";
+                result.Success = false;
+            }
+            return result;
         }
 
         public async Task<ServiceResponse<List<Product>>> GetProductsAsync()
