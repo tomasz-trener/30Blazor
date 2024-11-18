@@ -66,13 +66,19 @@ else
         NavigationManager.NavigateTo($"/products/editProduct/{productId}");
         
     }
-    private async void DeleteProduct(int productId)
+    private async Task DeleteProduct(int productId)
     {
         var response = await ProductService.DeleteProductAsync(productId);
-        await LoadProducts();
-
-
+        if (response.Success)
+        {
+            await LoadProducts();
+        }
+        else
+        {
+            message = response.Message;
+        }
     }
+
     private async Task LoadProducts()
     {
         // products = await Http.GetFromJsonAsync<List<Product>>("api/products");
