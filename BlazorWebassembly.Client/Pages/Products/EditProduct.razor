@@ -11,6 +11,9 @@
 else
 {
     <ProductForm product="product" OnValidSubmit="OnValidSubmit" />
+
+
+    <button type="button" class="btn btn-primary" @onclick=HandleDelete>Delete</button>
 }
 
 @code {
@@ -34,7 +37,14 @@ else
         }
     }
 
-
+    private async Task HandleDelete()
+    {
+        var response = await ProductService.DeleteProductAsync(Id);
+        if (response.Success)
+            NavigationManager.NavigateTo("/products/productsList");
+        else
+            message = response.Message;
+    }
 
     private async void OnValidSubmit()
     {
