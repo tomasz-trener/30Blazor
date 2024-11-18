@@ -1,10 +1,58 @@
 ﻿@page "/products/editProduct/{Id:int}"
 
+@inject IProductService ProductService
 <h3>EditProduct</h3>
+
+<EditForm Model="product">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <InputText id="Title" class="form-control" @bind-Value="product.Title" />
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <InputText id="Description" class="form-control" @bind-Value="product.Description" />
+    </div>
+
+    <div class="form-group">
+        <label for="Price">Price</label>
+        <InputNumber id="Price" class="form-control" @bind-Value="product.Price" />
+    </div>
+
+    <div class="form-group">
+        <label for="Barcode">Barcode</label>
+        <InputText id="Barcode" class="form-control" @bind-Value="product.Barcode" />
+    </div>
+
+    <div class="form-group">
+        <label for="ReleaseDate">Release Date</label>
+        <InputDate id="ReleaseDate" class="form-control" @bind-Value="product.ReleaseDate" />
+    </div>
+</EditForm>
+
 
 @code {
 
     [Parameter]
     public int Id { get; set; }
+
+    private Product product;
+    private string message = "Loading...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await ProductService.GetProductAsync(Id);
+        if (response.Success)
+        {
+            product = response.Data;
+        }
+        else
+        {
+            message = response.Message;
+        }
+    }
 
 }
