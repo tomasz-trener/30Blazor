@@ -1,6 +1,7 @@
 ﻿@page "/products/productsList"
 
 @inject IProductService ProductService
+@inject NavigationManager NavigationManager
 
 <h3>ProductsList</h3>
 
@@ -19,6 +20,7 @@ else
                 <th>Product Price</th>
                 <th>Barcode</th>
                 <th>Release date</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +32,7 @@ else
                     <td>@product.Price</td>
                     <td>@product.Barcode</td>
                     <td>@product.ReleaseDate.ToShortDateString()</td>
+                    <td><button class="btn btn-primary" @onclick="()=>GoToEditProduct(product.Id)">Edit</button></td>
                 </tr>
             }
         </tbody>
@@ -49,6 +52,11 @@ else
         //     new Product { Id = 1, Title = "Product 1", Price = 100 },
         // };
         await LoadProducts();
+    }
+
+    private void GoToEditProduct(int productId)
+    {
+        NavigationManager.NavigateTo($"/products/editProduct/{productId}");
     }
 
     private async Task LoadProducts()
