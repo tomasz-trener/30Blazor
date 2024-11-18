@@ -1,5 +1,7 @@
 ﻿@page "/products/productsList"
 
+@inject IProductService ProductService
+
 <h3>ProductsList</h3>
 
 
@@ -42,9 +44,24 @@ else
     private string message = "Loading...";
     protected override async Task OnInitializedAsync()
     {
-        products = new List<Product>()
+        // products = new List<Product>()
+        // {
+        //     new Product { Id = 1, Title = "Product 1", Price = 100 },
+        // };
+        await LoadProducts();
+    }
+
+    private async Task LoadProducts()
+    {
+        // products = await Http.GetFromJsonAsync<List<Product>>("api/products");
+        var reponse = await ProductService.GetProductsAsync();
+        if (reponse.Success)
         {
-            new Product { Id = 1, Title = "Product 1", Price = 100 },
-        };
+            products = reponse.Data;
+        }
+        else
+        {
+            message = reponse.Message;
+        }
     }
 }
