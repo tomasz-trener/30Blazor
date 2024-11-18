@@ -122,10 +122,11 @@ namespace Shop.API.Services
                 return result;
 
             }
-            catch (Exception)
+            catch (Exception ex )
             {
-
-                throw;
+                result.Message = $"Error updating product: {ex.Message}";
+                result.Success = false;
+                return result;
             }
           
         }
