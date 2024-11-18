@@ -10,7 +10,7 @@
 }
 else
 {
-    <EditForm Model="product" >
+    <EditForm Model="product"  OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -68,6 +68,19 @@ else
     void Cancel()
     {
         NavigationManager.NavigateTo("/products/productsList");
+    }
+
+    private async void OnValidSubmit()
+    {
+        var response = await ProductService.UpdateProductAsync(product);
+        if (response.Success)
+        {
+            NavigationManager.NavigateTo("/products/productsList");
+        }
+        else
+        {
+            message = response.Message;
+        }
     }
 
 }
