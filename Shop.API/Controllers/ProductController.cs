@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Shared;
 using Shop.Shared.Services.ProductsService;
 
 namespace Shop.API.Controllers
@@ -14,5 +15,16 @@ namespace Shop.API.Controllers
             _productService = productService;
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult<ServiceReponse<List<Product>>>> GetProducts()
+        {
+            var response = await _productService.GetProductsAsync();
+            if (response.Success)
+            {
+               return Ok(response);
+            }
+            return NotFound(response);
+        }
     }
 }
