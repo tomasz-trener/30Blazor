@@ -26,5 +26,27 @@ namespace Shop.API.Controllers
             }
             return NotFound(response);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<Product>>> GetProduct([FromRoute] int id)
+        {
+            var response = await _productService.GetProductAsync(id);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return NotFound(response);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<Product>>> UpdateProduct([FromBody] Product updatedProduct)
+        {
+            var response = await _productService.UpdateProductAsync(updatedProduct);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return NotFound(response);
+        }
     }
 }
