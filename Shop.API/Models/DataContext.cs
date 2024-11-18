@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop.DataSeeder;
 using Shop.Shared;
 
 namespace Shop.API.Models
@@ -13,7 +14,8 @@ namespace Shop.API.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<Product>()
+                .HasData(ProductDataSeeder.GenerateProductsData());
         }
     }
 }

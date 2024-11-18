@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shop.DataSeeder\Shop.DataSeeder.csproj" />
     <ProjectReference Include="..\Shop.Shared\Shop.Shared.csproj" />
   </ItemGroup>
 
