@@ -19,12 +19,13 @@ namespace BlazorWebassembly.Client
             
             var uriBuilder = new UriBuilder(appSettingsSection.BaseApiUrl)
             {
-                Path = appSettingsSection.ProductEndpoint.GetProducts
+                Path = appSettingsSection.ProductEndpoint.BaseUrl
             };
 
 
             //Microsoft.Extensions.Http
-            builder.Services.AddHttpClient<IProductService, ProductService>(Client => Client.BaseAddress = uriBuilder.Uri);
+            builder.Services.AddHttpClient<IProductService, ProductService>
+                (Client => Client.BaseAddress = uriBuilder.Uri);
 
 
             await builder.Build().RunAsync();

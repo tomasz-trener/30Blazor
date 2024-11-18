@@ -28,6 +28,21 @@ namespace Shop.API
 
             builder.Services.AddScoped<IProductService, Services.ProductService>();
 
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                    //.WithOrigins("http://localhost:5000");
+                });
+            });
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -39,6 +54,7 @@ namespace Shop.API
 
             app.UseHttpsRedirection();
 
+            app.UseCors();
             app.UseAuthorization();
 
 
