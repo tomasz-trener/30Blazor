@@ -13,6 +13,37 @@ namespace Shop.API.Services
         {
             _context = context;
         }
+
+        public async Task<ServiceResponse<Product>> CreateProductAsync(Product newProduct)
+        {
+            var result = new ServiceResponse<Product>();
+            try
+            {
+                await _context.Products.AddAsync(newProduct);
+                await _context.SaveChangesAsync();
+
+                result.Data = newProduct;
+                result.Success = true;
+                result.Message = "Product created successfully";
+            }
+            catch (Exception ex)
+            {
+                result.Message = $"Error creating product: {ex.Message}";
+                result.Success = false;
+            }
+            return result;
+        }
+
+        public Task<ServiceResponse<bool>> DeleteProductAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ServiceResponse<Product>> GetProductAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ServiceResponse<List<Product>>> GetProductsAsync()
         {
             var result = new ServiceResponse<List<Product>>();
@@ -28,6 +59,11 @@ namespace Shop.API.Services
                 result.Success = false;
             }
             return result;
+        }
+
+        public Task<ServiceResponse<Product>> UpdateProductAsync(Product updatedProduct)
+        {
+            throw new NotImplementedException();
         }
     }
 }
