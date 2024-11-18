@@ -1,0 +1,53 @@
+﻿@page "/newcalculatorValidation"
+@using System.ComponentModel.DataAnnotations
+<h3>NewCalculator</h3>
+
+
+<EditForm Model="model" OnValidSubmit="Sum">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <label>Number1</label>
+        <InputNumber @bind-Value="model.Number1"></InputNumber>
+        <ValidationMessage For="@(() => model.Number1)" />
+            <br />
+        <label>Number2</label>
+        <InputNumber @bind-Value="model.Number2"></InputNumber>
+        <ValidationMessage For="@(() => model.Number2)" />
+
+        <button type="submit">Add</button>
+    </div>
+</EditForm>
+
+
+<p>Result: @model.Result</p>
+
+
+@code {
+    OperationModel model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (model == null)
+        {
+            model = new OperationModel();
+        }
+    }
+
+    void Sum()
+    {
+        model.Result = model.Number1 + model.Number2;
+    }
+
+    public class OperationModel
+    {
+        [Range(0, 100, ErrorMessage="Number1 must be between 0 and 100")]
+        public double Number1 { get; set; }
+        [Range(0, 100, ErrorMessage = "Number2 must be between 0 and 100")]
+        public double Number2 { get; set; }
+
+        public double? Result { get; set; }
+    }
+
+
+}

@@ -1,0 +1,50 @@
+﻿@page "/products/productsList"
+
+<h3>ProductsList</h3>
+
+
+@if (products == null)
+{
+    <p>@message</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Barcode</th>
+                <th>Release date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Title</td>
+                    <td>@product.Price</td>
+                    <td>@product.Barcode</td>
+                    <td>@product.ReleaseDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
+@code {
+
+    private List<Product> products;
+    private string message = "Loading...";
+    protected override async Task OnInitializedAsync()
+    {
+        products = new List<Product>()
+        {
+            new Product { Id = 1, Title = "Product 1", Price = 100 },
+        };
+    }
+}

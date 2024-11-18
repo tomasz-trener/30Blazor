@@ -1,0 +1,45 @@
+﻿@page "/newcalculator"
+<h3>NewCalculator</h3>
+
+
+<EditForm Model="model" OnValidSubmit="Sum">
+    <div>
+        <label>Number1</label>
+        <InputNumber @bind-Value="model.Number1"></InputNumber>
+
+        <label>Number2</label>
+        <InputNumber @bind-Value="model.Number2"></InputNumber>
+
+        <button type="submit">Add</button>
+    </div>
+</EditForm>
+
+
+<p>Result: @model.Result</p>
+
+
+@code {
+    OperationModel model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (model == null)
+        {
+            model = new OperationModel();
+        }
+    }
+
+    void Sum()
+    {
+        model.Result = model.Number1 + model.Number2;
+    }
+
+    public class OperationModel
+    {
+        public double Number1 { get; set; }
+        public double Number2 { get; set; }
+        public double? Result { get; set; }
+    }
+
+
+}
