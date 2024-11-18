@@ -18,3 +18,13 @@ https://github.com/tomasz-trener/30Blazor
 
 	dotnet ef migrations add InitialMigrate
 	dotnet ef database update
+
+3) Rozbudowa aplikacji o komunikacje z API 
+ - dodanie referencji do Shared (product service)
+ - dodanie komponentu `ProductList`
+ - dodanie CORS do API
+ - dodanie obsługi CRUD 
+	- dodanie komponentu `EditProduct`
+	- dodanie komponentu `CreateProduct`
+	- wyniesienie komponentu `ProductForm` jako komponentu współdzielonego
+	- dodanie opcja `DeleteProduct`

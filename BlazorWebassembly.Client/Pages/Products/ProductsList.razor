@@ -36,7 +36,10 @@ else
                     <td>@product.Price</td>
                     <td>@product.Barcode</td>
                     <td>@product.ReleaseDate.ToShortDateString()</td>
-                    <td><button class="btn btn-primary" @onclick="()=>GoToEditProduct(product.Id)">Edit</button></td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="()=>GoToEditProduct(product.Id)">Edit</button>
+                        <button class="btn btn-primary" @onclick="()=>DeleteProduct(product.Id)">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -61,8 +64,15 @@ else
     private void GoToEditProduct(int productId)
     {
         NavigationManager.NavigateTo($"/products/editProduct/{productId}");
+        
     }
+    private async void DeleteProduct(int productId)
+    {
+        var response = await ProductService.DeleteProductAsync(productId);
+        await LoadProducts();
 
+
+    }
     private async Task LoadProducts()
     {
         // products = await Http.GetFromJsonAsync<List<Product>>("api/products");
