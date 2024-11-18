@@ -26,7 +26,7 @@ namespace Shop.API
                  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            builder.Services.AddScoped<IProductService,ProductService>();
+            builder.Services.AddScoped<IProductService, Services.ProductService>();
 
             var app = builder.Build();
 

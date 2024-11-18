@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Shop.Shared.Configuration;
+using Shop.Shared.Services.ProductsService;
 
 namespace BlazorWebassembly.Client
 {
@@ -12,9 +14,17 @@ namespace BlazorWebassembly.Client
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             //  builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            var appSettings = builder.Configuration.GetSection(nameof(AppSettings));
+            var appSettingsSection = appSettings.Get<AppSettings>();
+            
+            var uriBuilder = new UriBuilder(appSettingsSection.BaseApiUrl)
+            {
+                Path = appSettingsSection.ProductEndpoint.GetProducts
+            };
+
 
             //Microsoft.Extensions.Http
-           // builder.Services.AddHttpClient
+            builder.Services.AddHttpClient<IProductService, ProductService>(Client => Client.BaseAddress = uriBuilder.Uri);
 
 
             await builder.Build().RunAsync();

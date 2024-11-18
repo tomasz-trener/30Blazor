@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Shared.Services.ProductsService
 {
-    internal class ProductService : IProductService
+    public class ProductService : IProductService
     {
         private readonly HttpClient _httpClient;
         private readonly AppSettings _appSettings;
