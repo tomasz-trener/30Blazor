@@ -44,3 +44,19 @@ W nowym formularzu pasek filtrowania ma się pojawiać dopiero po kliknięciu pr
 Filtrowanie powinno działać nie globalnie, ale w ramach wybranych kolumn, tj. każda kolumna będzie miała osobne pole filtrowania 
 (np. wprowadzenie ID wyszukuje tylko po kolumnie `Id`). Formularz ma zachować obecne funkcjonalności sortowania, paginacji i edycji produktów.
 (Filter1.png, Filter2.png)
+
+
+
+3 wdrazamy autoryzacje JWT 
+
+  zaczanyamy od API 
+   - dodalismy uzytkownika do bazy danych
+   - dodalismy konfiracje w program.cs
+   - dodalismy AuthController oraz AuthSerice
+   - dodalismy atrybuty [Authroize] do kontrolerow ktore chcemy zabezpieczyc
+
+
+ wdrozylismy autoryzacje po stronie klienta webowego (blazor)
+   - dodanie serisów AuthService (w shared bo bedzie uzywany przez wiele komponentow))
+   - dodalismy CustomAuthStateProvider 
+   - dodalismy strony do logowania i rejestracji

@@ -35,14 +35,17 @@ namespace BlazorWebassembly.Client
                 Path = appSettingsSection.ProductEndpoint.BaseUrl
             };
 
-
-            //Microsoft.Extensions.Http
-            builder.Services.AddHttpClient<IProductService, ProductService>
-                (Client => Client.BaseAddress = uriBuilder.Uri);
             builder.Services.Configure<AppSettings>(appSettings); // wstrzykniecie konfiguracji do serwisów 
 
+            //Microsoft.Extensions.Http
+            //builder.Services.AddHttpClient<IProductService, ProductService>
+            //    (Client => Client.BaseAddress = uriBuilder.Uri);
+            //
+            //builder.Services.AddHttpClient<IAuthService,  AuthService>(Client => Client.BaseAddress = uriBuilder.Uri);
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = uriBuilder.Uri });
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
-            builder.Services.AddHttpClient<IAuthService,  AuthService>(Client => Client.BaseAddress = uriBuilder.Uri);
 
             await builder.Build().RunAsync();
         }
