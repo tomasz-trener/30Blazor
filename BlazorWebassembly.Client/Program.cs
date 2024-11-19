@@ -26,6 +26,7 @@ namespace BlazorWebassembly.Client
             //Microsoft.Extensions.Http
             builder.Services.AddHttpClient<IProductService, ProductService>
                 (Client => Client.BaseAddress = uriBuilder.Uri);
+            builder.Services.Configure<AppSettings>(appSettings); // wstrzykniecie konfiguracji do serwisów 
 
 
             await builder.Build().RunAsync();

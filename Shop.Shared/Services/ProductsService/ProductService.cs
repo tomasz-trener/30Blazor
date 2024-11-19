@@ -39,6 +39,11 @@ namespace Shop.Shared.Services.ProductsService
 
         }
 
+        public Task<ServiceResponse<List<Product>>> FilterProductsAsync(FilterParams filterParams, int page, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ServiceResponse<Product>> GetProductAsync(int id)
         {
             var response = await _httpClient.GetAsync($"{id}");
@@ -65,6 +70,11 @@ namespace Shop.Shared.Services.ProductsService
                 return new ServiceResponse<List<Product>> { Success = false, Message = ex.Message };
             }
 
+        }
+
+        public Task<ServiceResponse<List<Product>>> SearchProductsAsync(string text, int page, int pageSize)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<ServiceResponse<Product>> UpdateProductAsync(Product updatedProduct)
