@@ -1,4 +1,4 @@
-﻿
+﻿Dzien 1:
 https://github.com/tomasz-trener/30Blazor
 
 1) Stworzliśmy w blazor webassembly nowy projekt
@@ -28,3 +28,18 @@ https://github.com/tomasz-trener/30Blazor
 	- dodanie komponentu `CreateProduct`
 	- wyniesienie komponentu `ProductForm` jako komponentu współdzielonego
 	- dodanie opcja `DeleteProduct`
+
+Dzien 2:
+Zadanie 1:
+
+	- dodanie opcji wyszukiwania
+	- dodanie opcji paging 
+	- dodanie opcji sortowania po kolummnie 
+	(uwaga: skorzystaj z gotowego intrefejsu)
+	
+Zadanie 2: 
+Stwórz nowy formularz bazujący na obecnym formularzu `ProductsList`, który będzie różnił się sposobem filtrowania.
+W nowym formularzu pasek filtrowania ma się pojawiać dopiero po kliknięciu przycisku "Filtruj" (ikonka z menu kolumn). 
+Filtrowanie powinno działać nie globalnie, ale w ramach wybranych kolumn, tj. każda kolumna będzie miała osobne pole filtrowania 
+(np. wprowadzenie ID wyszukuje tylko po kolumnie `Id`). Formularz ma zachować obecne funkcjonalności sortowania, paginacji i edycji produktów.
+	
