@@ -44,6 +44,7 @@ namespace Shop.API.Services
                 response.Data = CreateToken(user);
                 response.Message = "Login successful.";
             }
+            return response;
 
 
         }

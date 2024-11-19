@@ -15,17 +15,17 @@ namespace Shop.Shared.Services.AuthService
         {
             _httpClient = httpClient;
         }
-        public Task<ServiceResponse<bool>> ChangePassword(string newPassword)
+        public async Task<ServiceResponse<bool>> ChangePassword(string newPassword)
         {
-            var result = _httpClient.PostAsJsonAsync("/api/auth/changePassword", newPassword);
-            var content = result.Result.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
+            var result = await _httpClient.PostAsJsonAsync("/api/auth/changePassword", newPassword);
+            var content = await result.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
             return content;
         }
 
-        public Task<ServiceResponse<string>> Login(UserLoginDto userLoginDto)
+        public async Task<ServiceResponse<string>> Login(UserLoginDto userLoginDto)
         {
-            var result = _httpClient.PostAsJsonAsync("/api/auth/login", userLoginDto);
-            var content = result.Result.Content.ReadFromJsonAsync<ServiceResponse<string>>();
+            var result = await _httpClient.PostAsJsonAsync("/api/auth/login", userLoginDto);
+            var content =  await result.Content.ReadFromJsonAsync<ServiceResponse<string>>();
             return content;
         }
 
