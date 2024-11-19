@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.Services;
 using Shop.Shared;
 using Shop.Shared.Auth;
+using System.Security.Claims;
 
 namespace Shop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
@@ -47,6 +50,18 @@ namespace Shop.API.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpPost("ChangePassword"), Authorize]
+        public async Task<ActionResult<ServiceResponse<bool>>> ChangePassword([FromBody] string newPassword)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var response = await _authService.ChangePasswordAsync(int.Parse(userId), newPassword);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
         }
 
     }

@@ -1,8 +1,12 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using Shop.API.Models;
 using Shop.API.Services;
 using Shop.Shared.Services.ProductsService;
+using System.Text;
 
 namespace Shop.API
 {
@@ -26,6 +30,20 @@ namespace Shop.API
 
             builder.Services.AddScoped<IProductService, Services.ProductService>();
             builder.Services.AddScoped<IAuthService, Services.AuthService>();
+
+            string token = builder.Configuration.GetSection("AppSettings:Token").Value;
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                  .AddJwtBearer(options =>
+                  {
+                      options.TokenValidationParameters = new TokenValidationParameters
+                      {
+                          ValidateIssuerSigningKey = true,
+                          IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(token)),
+                          ValidateIssuer = false,
+                          ValidateAudience = false
+                      };
+                  });
+
 
             builder.Services.AddCors(options =>
             {
