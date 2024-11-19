@@ -70,5 +70,28 @@ namespace Shop.API.Controllers
             else
                 return StatusCode(500, $"Internal server error {result.Message}");
         }
+
+        [HttpGet("search/{text}/{page}/{pageSize}")]
+        [HttpGet("search/{page}/{pageSize}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>>
+           SearchProducts([FromRoute] string? text = null, [FromRoute] int page = 1, [FromRoute] int pageSize = 10)
+        {
+            var result = await _productService.SearchProductsAsync(text, page, pageSize);
+
+            if (result.Success)
+                return Ok(result);
+            else
+                return NotFound(result);
+        }
+        [HttpPost("filter")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> FilterProducts([FromBody] FilterParams filterParams, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            var response = await _productService.FilterProductsAsync(filterParams, page, pageSize);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return NotFound(response);
+        }
     }
 }

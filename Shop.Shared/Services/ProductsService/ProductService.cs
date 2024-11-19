@@ -39,9 +39,25 @@ namespace Shop.Shared.Services.ProductsService
 
         }
 
-        public Task<ServiceResponse<List<Product>>> FilterProductsAsync(FilterParams filterParams, int page, int pageSize)
+        public async Task<ServiceResponse<List<Product>>> FilterProductsAsync(FilterParams filterParams, int page, int pageSize)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string uri = $"{_appSettings.ProductEndpoint.FilterProducts}?page={page}&pageSize={pageSize}";
+                var response = await _httpClient.PostAsJsonAsync(uri, filterParams);
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                var products = JsonConvert.DeserializeObject<ServiceResponse<List<Product>>>(json);
+                return products;
+            }
+            catch (HttpRequestException ex)
+            {
+                return new ServiceResponse<List<Product>> { Success = false, Message = "Failed to filter products: " + ex.Message };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<Product>> { Success = false, Message = ex.Message };
+            }
         }
 
         public async Task<ServiceResponse<Product>> GetProductAsync(int id)
@@ -72,9 +88,32 @@ namespace Shop.Shared.Services.ProductsService
 
         }
 
-        public Task<ServiceResponse<List<Product>>> SearchProductsAsync(string text, int page, int pageSize)
+        public async Task<ServiceResponse<List<Product>>> SearchProductsAsync(string text, int page, int pageSize)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string searchUrl = _appSettings.ProductEndpoint.SearchProduct;
+                string query = string.IsNullOrEmpty(text) ? "" : $"{text}/";
+                query += $"{page}/{pageSize}";
+                var response = await _httpClient.GetAsync(searchUrl + "/" + query);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ServiceResponse<List<Product>>
+                    {
+                        Success = false,
+                        Message = "Failed to load products:" + response.ReasonPhrase
+                    };
+                }
+
+                var json = await response.Content.ReadAsStringAsync();
+                var products = JsonConvert.DeserializeObject<ServiceResponse<List<Product>>>(json);
+                return products;
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<List<Product>> { Success = false, Message = ex.Message };
+            }
+
         }
 
         public async Task<ServiceResponse<Product>> UpdateProductAsync(Product updatedProduct)

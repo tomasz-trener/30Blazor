@@ -16,14 +16,21 @@
 }
 else
 {
+    <div>
+        @* <input type="text" class="form-control" placeholder="Search" @bind="searchTerm" /> *@
+        <InputText class="form-control" placeholder="Search" @bind-Value="searchTerm" />
+        <button class="btn btn-primary" @onclick="Search">Search</button>
+    </div>
+
+
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Product Name</th>
-                <th>Product Price</th>
-                <th>Barcode</th>
-                <th>Release date</th>
+                <th @onclick='() => ChangeSort("Id")'>Product Id</th>
+                <th @onclick='() => ChangeSort("Title")'>Product Name</th>
+                <th @onclick='() => ChangeSort("Price")'>Product Price</th>
+                <th @onclick='() => ChangeSort("Barcode")'>Barcode</th>
+                <th @onclick='() => ChangeSort("ReleaseDate")'>Release Date</th>
                 <th>Options</th>
             </tr>
         </thead>
@@ -45,6 +52,10 @@ else
         </tbody>
     </table>
 
+    <button class="btn btn-primary" @onclick="Previous">Previous</button>
+    <span>@currentPage</span>
+    <button class="btn btn-primary" @onclick="Next">Next</button>
+
 }
 
 
@@ -52,6 +63,14 @@ else
 
     private List<Product> products;
     private string message = "Loading...";
+
+    private string searchTerm = string.Empty;
+    private int currentPage = 1;
+    private int pageSize = 10;
+
+    private string sortColumn = "Id";
+    private bool sortAscending = true;
+
     protected override async Task OnInitializedAsync()
     {
         // products = new List<Product>()
@@ -83,7 +102,8 @@ else
     private async Task LoadProducts()
     {
         // products = await Http.GetFromJsonAsync<List<Product>>("api/products");
-        var reponse = await ProductService.GetProductsAsync();
+        //var reponse = await ProductService.GetProductsAsync();
+        var reponse = await ProductService.SearchProductsAsync(null, 1, 10);
         if (reponse.Success)
         {
             products = reponse.Data;
@@ -93,4 +113,83 @@ else
             message = reponse.Message;
         }
     }
+
+    private async Task Search()
+    {
+        var response = await ProductService.SearchProductsAsync(searchTerm, currentPage, pageSize);
+        if (response.Success)
+        {
+            products = response.Data;
+        }
+        else
+        {
+            message = response.Message;
+        }
+    }
+
+    private async Task Next()
+    {
+        currentPage++;
+        await Search();
+    }
+
+    private async Task Previous()
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+            await Search();
+        }
+    }
+    // private void ChangeSort(string columnName)
+    // {
+    //     if (columnName == "Title")
+    //     {
+    //         products = products.OrderBy(p => p.Title).ToList();
+    //     }
+    //     else if (columnName == "Price")
+    //     {
+    //         products = products.OrderBy(p => p.Price).ToList();
+    //     }
+    //     else if (columnName == "Barcode")
+    //     {
+    //         products = products.OrderBy(p => p.Barcode).ToList();
+    //     }
+    //     else if (columnName == "ReleaseDate")
+    //     {
+    //         products = products.OrderBy(p => p.ReleaseDate).ToList();
+    //     }
+    // }
+
+    private void ChangeSort(string column)
+    {
+        if (sortColumn == column)
+        {
+            sortAscending = !sortAscending;
+        }
+        else
+        {
+            sortColumn = column;
+            sortAscending = true;
+        }
+        SortProducts();
+    }
+
+    private void SortProducts()
+    {
+        if (sortAscending)
+        {
+            products = products.OrderBy(p => GetPropertyValue(p, sortColumn)).ToList();
+        }
+        else
+        {
+            products = products.OrderByDescending(p => GetPropertyValue(p, sortColumn)).ToList();
+        }
+    }
+
+    private object GetPropertyValue(Product product, string propertyName)
+    {
+        return typeof(Product).GetProperty(propertyName).GetValue(product, null);
+    }
+
 }

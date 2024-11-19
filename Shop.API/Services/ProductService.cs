@@ -60,6 +60,35 @@ namespace Shop.API.Services
             return result;
         }
 
+        public async Task<ServiceResponse<List<Product>>> FilterProductsAsync(FilterParams filterParams, int page, int pageSize)
+        {
+            var filteredProducts = _context.Products.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filterParams.Id))
+                filteredProducts = filteredProducts.Where(p => p.Id.ToString().Contains(filterParams.Id));
+            if (!string.IsNullOrEmpty(filterParams.Title))
+                filteredProducts = filteredProducts.Where(p => p.Title.Contains(filterParams.Title));
+            if (!string.IsNullOrEmpty(filterParams.Price))
+                filteredProducts = filteredProducts.Where(p => p.Price.ToString().Contains(filterParams.Price));
+            if (!string.IsNullOrEmpty(filterParams.Barcode))
+                filteredProducts = filteredProducts.Where(p => p.Barcode.Contains(filterParams.Barcode));
+
+
+            var paginatedProducts = filteredProducts
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            if (!string.IsNullOrEmpty(filterParams.ReleaseDate))
+                paginatedProducts = paginatedProducts.Where(p => p.ReleaseDate.ToShortDateString().Contains(filterParams.ReleaseDate)).ToList();
+
+            return new ServiceResponse<List<Product>>
+            {
+                Data = paginatedProducts,
+                Success = true
+            };
+        }
+
         public async Task<ServiceResponse<Product>> GetProductAsync(int id)
         {
             var result = new ServiceResponse<Product>();
@@ -92,6 +121,42 @@ namespace Shop.API.Services
                 result.Success = false;
             }
             return result;
+        }
+
+        public async Task<ServiceResponse<List<Product>>> SearchProductsAsync(string text, int page, int pageSize)
+        {
+            IQueryable<Product> query = _context.Products;
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                query = query.Where(p => p.Title.Contains(text) || p.Description.Contains(text));
+            }
+
+            try
+            {
+                var products = await query
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                var result = new ServiceResponse<List<Product>>
+                {
+                    Data = products,
+                    Success = true,
+                    Message = "Products retrieved successfully"
+                };
+                return result;
+            }
+            catch (Exception)
+            {
+                var result = new ServiceResponse<List<Product>>
+                {
+                    Data = null,
+                    Success = false,
+                    Message = "Error retrieving products"
+                };
+                return result;
+            }
         }
 
         public async Task<ServiceResponse<Product>> UpdateProductAsync(Product updatedProduct)
