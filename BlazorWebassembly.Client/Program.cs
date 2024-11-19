@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Shop.Shared.Configuration;
+using Shop.Shared.Services.AuthService;
 using Shop.Shared.Services.ProductsService;
 
 namespace BlazorWebassembly.Client
@@ -28,6 +29,8 @@ namespace BlazorWebassembly.Client
                 (Client => Client.BaseAddress = uriBuilder.Uri);
             builder.Services.Configure<AppSettings>(appSettings); // wstrzykniecie konfiguracji do serwisów 
 
+
+            builder.Services.AddHttpClient<IAuthService,  AuthService>(Client => Client.BaseAddress = uriBuilder.Uri);
 
             await builder.Build().RunAsync();
         }

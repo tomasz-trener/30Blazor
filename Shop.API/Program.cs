@@ -27,7 +27,7 @@ namespace Shop.API
             });
 
             builder.Services.AddScoped<IProductService, Services.ProductService>();
-
+            builder.Services.AddScoped<IAuthService, Services.AuthService>();
 
             builder.Services.AddCors(options =>
             {
