@@ -1,15 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Shop.API.Models;
 using Shop.Shared;
 using Shop.Shared.Auth;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Shop.API.Services
 {
     public class AuthService : IAuthService
     {
         private readonly DataContext _context;
-        public AuthService(DataContext context)
+        IConfiguration _configuration;
+        public AuthService(DataContext context, IConfiguration configuration)
         {
+            _configuration = configuration;
             _context = context;
         }
 
@@ -34,9 +40,34 @@ namespace Shop.API.Services
             }
             else
             {
-                response.Data = user.Id.ToString();
+                response.Success = true;
+                response.Data = CreateToken(user);
+                response.Message = "Login successful.";
             }
 
+
+        }
+
+        private string? CreateToken(User user)
+        {
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim("DateCreated", user.DateCreated.ToString())
+            };
+
+            string privateKey = _configuration.GetSection("AppSettings:Token").Value;
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(privateKey));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds);
+
+            var tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
+            return tokenHandler;
 
         }
 
