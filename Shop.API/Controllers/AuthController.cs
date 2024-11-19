@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.API.Services;
+using Shop.Shared;
+using Shop.Shared.Auth;
 
 namespace Shop.API.Controllers
 {
@@ -14,11 +16,17 @@ namespace Shop.API.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(UserRegisterDto request)
+        public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDto userRegisterDto)
         {
-            var response = await _authService.RegisterAsync(
-                new User { Email = request.Email, Name = request.Name }, request.Password
-            );
+
+            var user = new User
+            {
+                Email = userRegisterDto.Email,
+                Username = userRegisterDto.UserName
+            };
+               
+
+            var response = await _authService.RegisterAsync(user, userRegisterDto.Password);
 
             if (!response.Success)
             {
@@ -29,7 +37,7 @@ namespace Shop.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(UserLoginDto request)
+        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDto request)
         {
             var response = await _authService.LoginAsync(request.Email, request.Password);
 
