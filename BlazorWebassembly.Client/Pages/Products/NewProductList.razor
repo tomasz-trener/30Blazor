@@ -151,7 +151,7 @@ else
                 Price = filterPrice,
                 Barcode = filterBarcode,
                 ReleaseDate = filterReleaseDate,
-                Description = "", // nie wyswietlamy go na ui 
+                //Description = "", // nie wyswietlamy go na ui 
             };
 
         var response = await ProductService.FilterProductsAsync(filterParams, currentPage, pageSize);

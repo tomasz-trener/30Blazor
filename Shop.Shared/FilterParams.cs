@@ -14,7 +14,7 @@ namespace Shop.Shared
 
         public string Barcode { get; set; }
 
-        public string Description { get; set; }
+        //public string Description { get; set; } usuwamy bo nie ma tego w ui 
         public string ReleaseDate { get; set; }
     }
 }
