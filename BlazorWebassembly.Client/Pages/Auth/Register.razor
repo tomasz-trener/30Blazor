@@ -1,9 +1,11 @@
 ﻿@page "/auth/register"
 @using Shop.Shared.Auth
+@using Shop.Shared.Services.AuthService
 
- 
+ @inject IAuthService AuthService
+ @inject NavigationManager NavigationManager
 
-<EditForm Model="userRegisterDto" >
+<EditForm Model="userRegisterDto" OnValidSubmit="HandleRegister">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -32,8 +34,30 @@
         <ValidationMessage For="@(() => userRegisterDto.ConfirmPassword)" />
     </div>
 
+    <button type="submit" class="btn btn-primary">Register</button>
 </EditForm>
+
+@if(errorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>
+}
+
 
 @code {
     private UserRegisterDto userRegisterDto = new UserRegisterDto();
+    string errorMessage { get; set; } = null;
+    private async Task HandleRegister()
+    {
+        var result = await AuthService.Register(userRegisterDto);
+        if (result.Success)
+        {
+            NavigationManager.NavigateTo("/auth/login");
+        }
+        else
+        {
+            errorMessage = result.Message;
+        }
+    }
 }

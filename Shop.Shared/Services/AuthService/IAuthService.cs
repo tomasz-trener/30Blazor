@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Shared.Services.AuthService
 {
-    internal interface IAuthService
+    public interface IAuthService
     {
         Task<ServiceResponse<string>> Login(UserLoginDto userLoginDto);
 
