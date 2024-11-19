@@ -1,0 +1,39 @@
+﻿@page "/auth/register"
+@using Shop.Shared.Auth
+
+ 
+
+<EditForm Model="userRegisterDto" >
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <InputText id="Email" class="form-control" @bind-Value="userRegisterDto.Email" />
+        <ValidationMessage For="@(() => userRegisterDto.Email)" />
+     </div>
+
+
+    <div class="form-group">
+        <label for="userName">User name</label>
+        <InputText id="userName" class="form-control" @bind-Value="userRegisterDto.UserName" />
+        <ValidationMessage For="@(() => userRegisterDto.UserName)" />
+    </div>
+
+     <div class="form-group">
+        <label for="Password">Password</label>
+        <InputText id="Password" class="form-control" @bind-Value="userRegisterDto.Password" />
+        <ValidationMessage For="@(() => userRegisterDto.Password)" />
+      </div>
+
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <InputText id="confirmPassword" type="password" class="form-control" @bind-Value="userRegisterDto.ConfirmPassword" />
+        <ValidationMessage For="@(() => userRegisterDto.ConfirmPassword)" />
+    </div>
+
+</EditForm>
+
+@code {
+    private UserRegisterDto userRegisterDto = new UserRegisterDto();
+}
