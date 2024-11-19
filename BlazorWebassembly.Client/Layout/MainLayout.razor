@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Security.Claims
+@inherits LayoutComponentBase
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -6,6 +7,22 @@
 
     <main>
         <div class="top-row px-4">
+
+            <AuthorizeView>
+                <Authorized>
+                    <div>
+                        @context.User.Identity.Name
+                        @context.User.Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault()?.Value
+                        @context.User.Claims.Where(x => x.Type == "DateCreated").FirstOrDefault()?.Value
+                    </div>
+                    <a href="#" onclick="Logout" >Logout</a>
+
+                </Authorized>
+                <NotAuthorized>
+                    <a href="https://docs.microsoft.com/aspnet/" target="_blank">Documentation</a>
+                </NotAuthorized>
+            </AuthorizeView>
+
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
 

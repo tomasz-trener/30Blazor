@@ -6,7 +6,7 @@
 @inject IAuthService AuthService
 @inject NavigationManager NavigationManager
 @inject ILocalStorageService LocalStorageService // nuget Blazored.LocalStorage
-
+@inject AuthenticationStateProvider AuthenticationStateProvider
 <h3>Login</h3>
 
 <EditForm Model="userLoginDto" OnValidSubmit="HandleLogin">
@@ -37,6 +37,7 @@
         if (result.Success)
         {
             await LocalStorageService.SetItemAsync("authToken", result.Data);
+            await AuthenticationStateProvider.GetAuthenticationStateAsync();
             NavigationManager.NavigateTo("/");
         }
     }
