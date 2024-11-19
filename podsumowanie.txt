@@ -34,8 +34,9 @@ Zadanie 1:
 
 	- dodanie opcji wyszukiwania
 	- dodanie opcji paging 
-	- dodanie opcji sortowania po kolummnie 
 	(uwaga: skorzystaj z gotowego intrefejsu)
+	- dodanie opcji sortowania po kolummnie (loklanie)
+	
 	
 Zadanie 2: 
 Stwórz nowy formularz bazujący na obecnym formularzu `ProductsList`, który będzie różnił się sposobem filtrowania.
