@@ -32,10 +32,10 @@ https://github.com/tomasz-trener/30Blazor
 Dzien 2:
 Zadanie 1:
 
-	- dodanie opcji wyszukiwania
+	- dodanie opcji wyszukiwania (Search.png)
 	- dodanie opcji paging 
-	(uwaga: skorzystaj z gotowego intrefejsu)
-	- dodanie opcji sortowania po kolummnie (loklanie)
+	(po stronie serwera. uwaga: skorzystaj z gotowego intrefejsu)
+	- dodanie opcji sortowania po kolummnie (lokalnie)
 	
 	
 Zadanie 2: 
@@ -43,4 +43,4 @@ Stwórz nowy formularz bazujący na obecnym formularzu `ProductsList`, który b�
 W nowym formularzu pasek filtrowania ma się pojawiać dopiero po kliknięciu przycisku "Filtruj" (ikonka z menu kolumn). 
 Filtrowanie powinno działać nie globalnie, ale w ramach wybranych kolumn, tj. każda kolumna będzie miała osobne pole filtrowania 
 (np. wprowadzenie ID wyszukuje tylko po kolumnie `Id`). Formularz ma zachować obecne funkcjonalności sortowania, paginacji i edycji produktów.
-	
+(Filter1.png, Filter2.png)
