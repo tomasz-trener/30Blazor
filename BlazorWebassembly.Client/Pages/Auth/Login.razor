@@ -1,9 +1,11 @@
 ﻿@page "/auth/login"
+@using Blazored.LocalStorage
 @using Shop.Shared.Auth
 @using Shop.Shared.Services.AuthService
 
 @inject IAuthService AuthService
 @inject NavigationManager NavigationManager
+@inject ILocalStorageService LocalStorageService // nuget Blazored.LocalStorage
 
 <h3>Login</h3>
 
@@ -34,6 +36,7 @@
         var result = await AuthService.Login(userLoginDto);
         if (result.Success)
         {
+            await LocalStorageService.SetItemAsync("authToken", result.Data);
             NavigationManager.NavigateTo("/");
         }
     }
