@@ -1,7 +1,7 @@
 ﻿@page "/products/editProduct/{Id:int}"
 @using Microsoft.AspNetCore.Authorization
 
-@attribute [Authorize]
+@attribute [Authorize(Roles ="RolaWazna")]
 @inject IProductService ProductService
 @inject NavigationManager NavigationManager
 <h3>EditProduct</h3>

@@ -21,11 +21,12 @@
                         @context.User.Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault()?.Value
                         @context.User.Claims.Where(x => x.Type == "DateCreated").FirstOrDefault()?.Value
                     </div>
-                    <a href="#" onclick="Logout" >Logout</a>
+                    <a href="#" @onclick="Logout">Logout</a>
 
                 </Authorized>
                 <NotAuthorized>
-                    <a href="https://docs.microsoft.com/aspnet/" target="_blank">Documentation</a>
+                    <a href="Auth/login">Login</a>
+                    <a href="Auth/register">Register</a>
                 </NotAuthorized>
             </AuthorizeView>
 
