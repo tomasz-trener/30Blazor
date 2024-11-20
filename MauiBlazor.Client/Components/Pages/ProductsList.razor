@@ -1,10 +1,10 @@
 @page "/productList"
 @using Maui.Client.ViewModels
 
-@inject ProductViewModel ProductViewModel
+@inject ProductViewModel MProductViewModel
 
 <h1>ProductList</h1>
-@if (ProductViewModel.Products == null)
+@if (MProductViewModel.Products == null)
 {
     <p>error</p>
 }
@@ -29,7 +29,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in ProductViewModel.Products)
+            @foreach (var product in MProductViewModel.Products)
             {
                 <tr>
                     <td>@product.Id</td>
@@ -53,4 +53,9 @@ else
 }
 @code {
  
+
+    protected override async Task OnInitializedAsync()
+    {
+        await MProductViewModel.LoadProducts();
+    }
 }

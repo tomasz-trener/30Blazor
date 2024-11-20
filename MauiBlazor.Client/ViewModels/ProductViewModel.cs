@@ -21,7 +21,7 @@ namespace Maui.Client.ViewModels
         public ProductViewModel(IProductService productService)
         {
             _productService = productService;
-            LoadProducts();
+          //  LoadProducts();
         }
 
         public async Task LoadProducts()
