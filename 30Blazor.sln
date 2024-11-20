@@ -11,8 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Filter1.png = Filter1.png
 		Filter2.png = Filter2.png
-		Search.png = Search.png
 		podsumowanie.txt = podsumowanie.txt
+		Search.png = Search.png
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.API", "Shop.API\Shop.API.csproj", "{25ADB324-EC4B-454C-AEDF-3120E08ECD9E}"

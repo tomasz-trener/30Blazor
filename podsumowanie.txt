@@ -60,3 +60,5 @@ Filtrowanie powinno działać nie globalnie, ale w ramach wybranych kolumn, tj. 
    - dodanie serisów AuthService (w shared bo bedzie uzywany przez wiele komponentow))
    - dodalismy CustomAuthStateProvider 
    - dodalismy strony do logowania i rejestracji
+
+poprawka w program.cs zeby zrobic globalnego klienta http a nie lokalne dla poszczegolnych serwisow 
