@@ -19,7 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.API", "Shop.API\Shop.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.DataSeeder", "Shop.DataSeeder\Shop.DataSeeder.csproj", "{6842A402-0CEA-403C-8411-2FFE13CC2597}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Client", "Maui.Client\Maui.Client.csproj", "{3E81C95B-C88C-40BA-B562-CE718EC3783C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Client", "Maui.Client\Maui.Client.csproj", "{3E81C95B-C88C-40BA-B562-CE718EC3783C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Client2", "Maui.Client2\Maui.Client2.csproj", "{D57395E5-7206-4888-9F33-B72324B24322}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiBlazor.Client", "MauiBlazor.Client\MauiBlazor.Client.csproj", "{62BC4EA7-EBAF-416E-9A70-074B0D3225F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,18 @@ Global
 		{3E81C95B-C88C-40BA-B562-CE718EC3783C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E81C95B-C88C-40BA-B562-CE718EC3783C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E81C95B-C88C-40BA-B562-CE718EC3783C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D57395E5-7206-4888-9F33-B72324B24322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57395E5-7206-4888-9F33-B72324B24322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D57395E5-7206-4888-9F33-B72324B24322}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D57395E5-7206-4888-9F33-B72324B24322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57395E5-7206-4888-9F33-B72324B24322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D57395E5-7206-4888-9F33-B72324B24322}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{62BC4EA7-EBAF-416E-9A70-074B0D3225F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62BC4EA7-EBAF-416E-9A70-074B0D3225F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62BC4EA7-EBAF-416E-9A70-074B0D3225F7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{62BC4EA7-EBAF-416E-9A70-074B0D3225F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62BC4EA7-EBAF-416E-9A70-074B0D3225F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62BC4EA7-EBAF-416E-9A70-074B0D3225F7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

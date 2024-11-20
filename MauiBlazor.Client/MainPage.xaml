@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiBlazor.Client"
+             x:Class="MauiBlazor.Client.MainPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <Grid RowDefinitions="* ,Auto">
+        <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
+            <BlazorWebView.RootComponents>
+                <RootComponent Selector="#app" ComponentType="{x:Type local:Components.Routes}" />
+            </BlazorWebView.RootComponents>
+        </BlazorWebView>
+
+        <Button Margin="10" Text="Native button" Grid.Row="1" Clicked="Button_Clicked"></Button>
+
+
+    </Grid>
+    
+
+</ContentPage>
