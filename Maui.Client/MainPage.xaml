@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:Maui.Client.ViewModels"
+             xmlns:p="clr-namespace:Shop.Shared;assembly=Shop.Shared"
              x:DataType="viewModel:ProductViewModel"
              x:Class="Maui.Client.MainPage">
 
@@ -12,7 +13,7 @@
 
             <CollectionView ItemsSource="{Binding Products}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="p:Product"> <!-- Podpowiedzi składni -->
 
                         <Frame BackgroundColor="Red" Padding="10" Margin="5">
                             <Grid>
