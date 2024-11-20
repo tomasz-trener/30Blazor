@@ -62,3 +62,9 @@ Filtrowanie powinno działać nie globalnie, ale w ramach wybranych kolumn, tj. 
    - dodalismy strony do logowania i rejestracji
 
 poprawka w program.cs zeby zrobic globalnego klienta http a nie lokalne dla poszczegolnych serwisow 
+
+
+keytool -genkeypair -v -keystore myapp.keystore -alias myapp -keyalg RSA -keysize 2048 -validity 10000
+
+
+dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=myapp.keystore -p:AndroidSigningKeyAlias=myapp -p:AndroidSigningKeyPass=alxALX123!@# -p:AndroidSigningStorePass=alxALX123!@#

@@ -1,0 +1,40 @@
+﻿@page "/jscalculator2"
+@* @inject IJSRuntime JSRuntime *@
+
+<h3>JsCalculator2</h3>
+
+
+<div>
+    <label for="number1">Liczba 1:</label>
+    <input id="number1" type="number" />
+</div>
+
+<div>
+    <label for="number2">Liczba 2:</label>
+    <input id="number2" type="number" />
+</div>
+
+<div>
+    <button @onclick="CalculateSum">Sumuj</button>
+</div>
+
+@if (Result.HasValue)
+{
+    <div>
+        <strong>Wynik:</strong> @Result
+    </div>
+}
+
+@code {
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+    private decimal? Result { get; set; }
+    private async Task CalculateSum()
+    {
+     
+        Result = await JSRuntime.InvokeAsync<decimal>("sumNumbers");
+
+      //  await JSRuntime.InvokeVoidAsync("alert", $"Wynik: {result}");
+    }
+}
