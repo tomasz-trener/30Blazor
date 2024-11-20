@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:Maui.Client.ViewModels"
+             x:DataType="viewModel:ProductViewModel"
+             x:Class="Maui.Client.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <CollectionView ItemsSource="{Binding Products}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Frame BackgroundColor="Red" Padding="10" Margin="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <HorizontalStackLayout Grid.Row="0">
+                                    <Label Text="{Binding Id}"></Label>
+                                    <Label Text="{Binding Title}"></Label>
+                                </HorizontalStackLayout>
+
+                                <Label Grid.Row="1" Text="{Binding Description}"></Label>
+
+
+                                <HorizontalStackLayout Grid.Row="2">
+                                    <Label Text="Barcode:"></Label>
+                                    <Label Text="{Binding Barcode}"></Label>
+
+                                    <Label Text=" Price:"></Label>
+                                    <Label Text="{Binding Price, StringFormat='{0} zł'}"></Label>
+
+                                    <Label Text=" ReleaseDate:"></Label>
+                                    <Label Text="{Binding ReleaseDate, StringFormat='{0: dd MM yyyy}'}"></Label>
+                                </HorizontalStackLayout>
+
+                            </Grid>
+                        </Frame>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
