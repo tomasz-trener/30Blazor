@@ -1,5 +1,6 @@
 @page "/productList"
 @using Maui.Client.ViewModels
+@using Newtonsoft.Json
 
 @inject ProductViewModel MProductViewModel
 
@@ -52,10 +53,12 @@ else
 
 }
 @code {
- 
+
 
     protected override async Task OnInitializedAsync()
     {
         await MProductViewModel.LoadProducts();
+
+        File.WriteAllText("c:\\dane\\products.json", JsonConvert.SerializeObject(MProductViewModel.Products));
     }
 }
